@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 
@@ -40,4 +41,6 @@ func (s *Server) Run(port string) {
 	if err := s.Server(list); err != nil {
 		log.Fatalf("Failed to serve : %s", err)
 	}
+
+	fmt.Println("> listening on port ", port)
 }

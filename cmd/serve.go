@@ -15,6 +15,6 @@ var serveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		server := server.NewServer()
 
-		theApp.Run(":5050")
+		server.Run(":50051")
 	},
 }
