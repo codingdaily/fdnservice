@@ -1,4 +1,4 @@
-APP_NAME = microserver
+APP_NAME = microsvc-starter
 SHORT_DESC = application boiler plate 
 LONG_DESC = write your decription here...
 USER = zkrhm-fdn
