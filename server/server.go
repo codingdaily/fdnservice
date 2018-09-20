@@ -6,10 +6,23 @@ import (
 	"log"
 	"net"
 
+	"go.uber.org/zap/zapcore"
+
 	pb "bitbucket.org/zkrhm-fdn/microsvc-starter/kroto"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
+
+var (
+	logger *zap.Logger
+)
+
+func init() {
+	config := zap.NewDevelopmentConfig()
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, _ = config.Build()
+}
 
 //Server struct server contains all methods needs for protobuf servering.
 type Server struct {
@@ -22,8 +35,13 @@ func NewServer() *Server {
 
 //SayHello the server side implementation
 func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+
+	sugar := logger.Sugar()
+	sugar.Infow("Accepting request ",
+		"param", in.Name,
+	)
 	return &pb.HelloReply{
-		Message: "Hello" + in.Name,
+		Message: "Hello " + in.Name,
 	}, nil
 }
 
