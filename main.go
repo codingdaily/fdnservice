@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"bitbucket.org/zkrhm-fdn/fire-starter/cmd"
+	//watch this one. do not import wrong path, because it's the root command.
+	"bitbucket.org/zkrhm-fdn/microsvc-starter/cmd"
 )
 
 func main() {

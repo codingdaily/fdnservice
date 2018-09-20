@@ -34,13 +34,13 @@ func (s *Server) Run(port string) {
 		log.Fatalf("Failed to Listen : %v ", err)
 	}
 
-	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
-	reflection.Register(s)
+	grpcSvr := grpc.NewServer()
+	pb.RegisterGreeterServer(grpcSvr, NewServer())
+	reflection.Register(grpcSvr)
 
-	if err := s.Server(list); err != nil {
+	fmt.Println("> listening on port ", port)
+	if err := grpcSvr.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve : %s", err)
 	}
 
-	fmt.Println("> listening on port ", port)
 }
