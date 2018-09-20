@@ -1,0 +1,18 @@
+package: bitbucket.org/zkrhm-fdn/fire-starter
+import:
+- package: github.com/gorilla/mux
+  version: ^1.6.2
+- package: github.com/spf13/cobra
+  version: ^0.0.3
+- package: github.com/zkrhm/httphelper
+- package: go.uber.org/zap
+  version: ^1.9.1
+- package: github.com/getsentry/raven-go
+- package: google.golang.org/grpc
+  version: ^1.15.0
+testImport:
+- package: github.com/onsi/ginkgo
+  version: ^1.6.0
+- package: github.com/onsi/gomega
+  version: ^1.4.2
+- package: github.com/zkrhm/testhelper

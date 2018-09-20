@@ -1,0 +1,5 @@
+/bin/
+/test/tests.*
+/test/coverage.*
+/go.sum
+vendor
