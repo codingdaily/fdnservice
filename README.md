@@ -22,3 +22,12 @@ used libraries:
     - raven-go (sentry)
 - RPC:
     - protocol buffer
+
+## What to Configure.
+when you using the make command, it will read the Makefile
+change following lines so you'll have correct binary name.
+APP_NAME : the binary name
+USER : user on cvs (git)
+DOMAIN : dsn of the source.
+
+all three info will be used when the binary is generated.

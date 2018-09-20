@@ -1,4 +1,4 @@
-APP_NAME = fire-starter
+APP_NAME = microserver
 SHORT_DESC = application boiler plate 
 LONG_DESC = write your decription here...
 USER = zkrhm-fdn

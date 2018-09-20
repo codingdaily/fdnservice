@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"bitbucket.org/zkrhm-fdn/fire-starter/app"
+	"bitbucket.org/zkrhm-fdn/microsvc-starter/server"
 	"github.com/spf13/cobra"
 )
 
@@ -13,9 +13,8 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Serve the content",
 	Run: func(cmd *cobra.Command, args []string) {
-		theApp := app.NewApp()
-		theApp.Initialize()
+		server := server.NewServer()
 
-		theApp.Run(":8000")
+		theApp.Run(":5050")
 	},
 }

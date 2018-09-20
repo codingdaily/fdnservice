@@ -1,4 +1,4 @@
-package app_test
+package server_test
 
 import (
 	"testing"
