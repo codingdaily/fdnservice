@@ -12,6 +12,8 @@ import:
   version: ^1.15.0
 - package: go.uber.org/atomic
   version: v1.3.2
+- package: github.com/certifi/gocertifi
+  version: ^2018.1.18
 testImport:
 - package: github.com/onsi/ginkgo
   version: ^1.6.0
