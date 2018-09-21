@@ -63,17 +63,24 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Serve the content run on port 50051 by default",
 	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("sub logging : ", viper.Sub("logging").AllSettings())
 
 		bs, err := yaml.Marshal(viper.Sub("logging").AllSettings())
 		if err != nil {
 			panic(err)
 		}
-
+		/* handling viper's "feature"
+			viper lowercase all keys, while zap configuration is case sensitive
+			so this part of code is written
+		*/
 		r := strings.NewReplacer(
 			"encoderconfig", "encoderConfig",
 			"outputpaths", "outputPaths",
 			"erroroutputpaths", "errorOutputPaths",
 			"initialfields", "initialFields",
+			"levelencoder", "levelEncoder",
+			"levelkey", "levelKey",
+			"messagekey", "messageKey",
 		)
 		bs = []byte(r.Replace(string(bs)))
 
