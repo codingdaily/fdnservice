@@ -6,7 +6,7 @@ import (
 	"os"
 
 	//watch this one. do not import wrong path, because it's the root command.
-	"bitbucket.org/zkrhm-fdn/microsvc-starter/cmd"
+	"bitbucket.org/zkrhm-fdn/fdnservice/cmd"
 )
 
 func main() {

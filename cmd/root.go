@@ -2,6 +2,7 @@
 package cmd
 
 import (
+	"bitbucket.org/zkrhm-fdn/fdnservice/buildvars"
 	"github.com/spf13/cobra"
 )
 
@@ -14,8 +15,8 @@ var (
 
 // RootCmd is the root for all hello commands.
 var RootCmd = &cobra.Command{
-	Use:           AppName,
-	Short:         ShortDesc,
-	Long:          LongDesc,
+	Use:           buildvars.AppName,
+	Short:         buildvars.ShortDesc,
+	Long:          buildvars.LongDesc,
 	SilenceErrors: true,
 }

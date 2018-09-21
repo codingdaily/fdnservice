@@ -4,14 +4,8 @@ import (
 	"fmt"
 	"runtime"
 
+	"bitbucket.org/zkrhm-fdn/fdnservice/buildvars"
 	"github.com/spf13/cobra"
-)
-
-var (
-	// Version contains the current version.
-	Version = "dev"
-	// BuildDate contains a string with the build date.
-	BuildDate = "unknown"
 )
 
 func init() {
@@ -23,8 +17,9 @@ var versionCmd = &cobra.Command{
 	Short: "Print version",
 	Long:  `Display version and build information about hellogopher.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("%s %s\n", AppName, Version)
-		fmt.Printf("  Build date: %s\n", BuildDate)
+		fmt.Printf("%s %s\n", buildvars.AppName, buildvars.Version)
+		fmt.Printf("  Build date: %s\n", buildvars.BuildDate)
 		fmt.Printf("  Built with: %s\n", runtime.Version())
+		fmt.Printf("  Author: %s\n", buildvars.Author)
 	},
 }

@@ -1,25 +1,19 @@
+app:
+  port: ":8000"
 raven:
-  dsn: "where"
+  dsn: "http://a67ba0e71d9a4d7b82eaaa7cd642adfd@localhost:9000/2"
 logging:
-  level: info
+  level: debug
   encoding: console
   outputPaths:
-    key: "outputPaths"
-    value:
-      - stdout
-      - /tmp/log/fdnsvc.log
+    - stdout
+    - /tmp/log/fdnsvc.log
   errorOutputPaths:
-    key: "errorOutputPaths"
-    value:
-      - stderr
-      - /tmp/log/fdnsvc-err.log
+    - stderr
+    - /tmp/log/fdnsvc-err.log
   initialFields:
-    key: "initialFields"
-    value:
-      - app-name : fdnsvc
+    appName : fdnsvc
   encoderConfig:
-    key : "encoderConfig"
-    value:
-      - messageKey: message
-      - levelKey : level
-      - levelEncoder: lowercase
+    messageKey: message
+    levelKey : level
+    levelEncoder: lowercase

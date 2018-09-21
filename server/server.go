@@ -7,7 +7,7 @@ import (
 
 	raven "github.com/getsentry/raven-go"
 
-	pb "bitbucket.org/zkrhm-fdn/microsvc-starter/kroto"
+	pb "bitbucket.org/zkrhm-fdn/fdnservice/kroto"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -61,7 +61,7 @@ func (s *Server) Run(port string) {
 	reflection.Register(grpcSvr)
 
 	s.logger.Info(fmt.Sprint("> listening on port ", port))
-	fmt.Println("fmt> listening on port ", port)
+
 	if err := grpcSvr.Serve(lis); err != nil {
 		raven.CaptureErrorAndWait(err, nil)
 		s.logger.Fatal(fmt.Sprint("Failed to serve : %s", err))

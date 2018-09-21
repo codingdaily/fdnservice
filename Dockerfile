@@ -14,7 +14,7 @@ COPY . .
 RUN glide install
 
 RUN make install
-RUN apk del git make 
-ENTRYPOINT [ ${app_name} ]
+RUN apk del git make
+ENTRYPOINT [ ${app_name} serve ]
 
 # EXPOSE 8000

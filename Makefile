@@ -27,7 +27,7 @@ export GO111MODULE=on
 all: fmt lint $(BIN) ; $(info $(M) building executable…) @ ## Build program binary
 	$Q $(GO) build \
 		-tags release \
-		-ldflags '-X $(PACKAGE)/cmd.Version=$(VERSION) -X $(PACKAGE)/cmd.BuildDate=$(DATE) -X $(PACKAGE)/cmd.AppName=$(APP_NAME)' \
+		-ldflags '-X $(PACKAGE)/buildvars.Version=$(VERSION) -X $(PACKAGE)/buildvars.BuildDate=$(DATE) -X $(PACKAGE)/buildvars.AppName=$(APP_NAME)' \
 		-o $(BIN)/$(APP_NAME) main.go
 
 .PHONY: install
