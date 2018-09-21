@@ -23,7 +23,7 @@ func init() {
 	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	logger, _ = config.Build()
 
-	raven.SetDSN("localhost:90912")
+	raven.SetDSN("http://a67ba0e71d9a4d7b82eaaa7cd642adfd:0572b94450fe46008572e588f107f614@localhost:9000/2")
 }
 
 //Server struct server contains all methods needs for protobuf servering.
@@ -51,7 +51,7 @@ func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 func (s *Server) Run(port string) {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
-		raven.CaptureError(err, nil)
+		raven.CaptureErrorAndWait(err, nil)
 		logger.Fatal(fmt.Sprint("Failed to Listen : %v ", err))
 	}
 
@@ -61,6 +61,7 @@ func (s *Server) Run(port string) {
 
 	logger.Info(fmt.Sprint("> listening on port ", port))
 	if err := grpcSvr.Serve(lis); err != nil {
+		raven.CaptureErrorAndWait(err, nil)
 		logger.Fatal(fmt.Sprint("Failed to serve : %s", err))
 	}
 
