@@ -1,0 +1,26 @@
+{
+  "raven":{
+    "dsn": "where"
+  },
+  "logging":{
+    "level": "info",
+    "encoding":"console",
+    "outputPaths":[
+      "stdout",
+      "/tmp/log/fdnsvc.log"
+    ],
+    "errorOutputPaths": [
+      "stderr",
+      "/tmp/log/fdnsvc-err.log"
+    ],
+    "initialFields":[
+      {"appname":"fdnsvc"}
+    ],
+    "encoderConig":[
+      {"messageKey":"message"},
+      {"levelKey":"level"},
+      {"levelEncoder":"lowercase"},
+    ]
+  }
+
+}

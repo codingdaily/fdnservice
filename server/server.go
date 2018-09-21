@@ -6,7 +6,6 @@ import (
 	"net"
 
 	raven "github.com/getsentry/raven-go"
-	"go.uber.org/zap/zapcore"
 
 	pb "bitbucket.org/zkrhm-fdn/microsvc-starter/kroto"
 	"go.uber.org/zap"
@@ -14,34 +13,35 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+const (
+	appName = "fdnsvc"
+)
+
 var (
 	logger *zap.Logger
 )
 
-func init() {
-	config := zap.NewDevelopmentConfig()
-	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
-	logger, _ = config.Build()
-
-	raven.SetDSN("http://a67ba0e71d9a4d7b82eaaa7cd642adfd:0572b94450fe46008572e588f107f614@localhost:9000/2")
-}
+// func init() {
+// 	logger, _ = logconfig.NewZapLogger(appName)
+// }
 
 //Server struct server contains all methods needs for protobuf servering.
 type Server struct {
+	appName string
+	logger  *zap.Logger
 }
 
-//NewServer create server instance
-func NewServer() *Server {
+//NewServerWithLogger create server instance with zap logger parameter passed.
+func NewServerWithLogger(loggerParam *zap.Logger) *Server {
+	return &Server{appName: appName, logger: loggerParam}
+}
+
+func newServer() *Server {
 	return &Server{}
 }
 
 //SayHello the server side implementation
 func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-
-	sugar := logger.Sugar()
-	sugar.Infow("Accepting request ",
-		"param", in.Name,
-	)
 	return &pb.HelloReply{
 		Message: "Hello " + in.Name,
 	}, nil
@@ -49,20 +49,22 @@ func (s *Server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 
 //Run running service on given port (on parameter)
 func (s *Server) Run(port string) {
+
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		raven.CaptureErrorAndWait(err, nil)
-		logger.Fatal(fmt.Sprint("Failed to Listen : %v ", err))
+		s.logger.Fatal(fmt.Sprint("Failed to Listen : %v ", err))
 	}
 
 	grpcSvr := grpc.NewServer()
-	pb.RegisterGreeterServer(grpcSvr, NewServer())
+	pb.RegisterGreeterServer(grpcSvr, newServer())
 	reflection.Register(grpcSvr)
 
-	logger.Info(fmt.Sprint("> listening on port ", port))
+	s.logger.Info(fmt.Sprint("> listening on port ", port))
+	fmt.Println("fmt> listening on port ", port)
 	if err := grpcSvr.Serve(lis); err != nil {
 		raven.CaptureErrorAndWait(err, nil)
-		logger.Fatal(fmt.Sprint("Failed to serve : %s", err))
+		s.logger.Fatal(fmt.Sprint("Failed to serve : %s", err))
 	}
 
 }

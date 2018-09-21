@@ -1,0 +1,25 @@
+raven:
+  dsn: "where"
+logging:
+  level: info
+  encoding: console
+  outputPaths:
+    key: "outputPaths"
+    value:
+      - stdout
+      - /tmp/log/fdnsvc.log
+  errorOutputPaths:
+    key: "errorOutputPaths"
+    value:
+      - stderr
+      - /tmp/log/fdnsvc-err.log
+  initialFields:
+    key: "initialFields"
+    value:
+      - app-name : fdnsvc
+  encoderConfig:
+    key : "encoderConfig"
+    value:
+      - messageKey: message
+      - levelKey : level
+      - levelEncoder: lowercase

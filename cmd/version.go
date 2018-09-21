@@ -23,7 +23,7 @@ var versionCmd = &cobra.Command{
 	Short: "Print version",
 	Long:  `Display version and build information about hellogopher.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("microservice %s\n", Version)
+		fmt.Printf("%s %s\n", AppName, Version)
 		fmt.Printf("  Build date: %s\n", BuildDate)
 		fmt.Printf("  Built with: %s\n", runtime.Version())
 	},
