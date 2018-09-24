@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
 
 	"bitbucket.org/zkrhm-fdn/fdnservice/buildvars"
 	"bitbucket.org/zkrhm-fdn/fdnservice/logconfig"
@@ -79,22 +78,11 @@ var serveCmd = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
-		/* handling viper's "feature"
-		viper lowercase all keys, while zap configuration is case sensitive
-		so this part of code is written
-		*/
-		r := strings.NewReplacer(
-			"encoderconfig", "encoderConfig",
-			"outputpaths", "outputPaths",
-			"erroroutputpaths", "errorOutputPaths",
-			"initialfields", "initialFields",
-			"levelencoder", "levelEncoder",
-			"levelkey", "levelKey",
-			"messagekey", "messageKey",
-		)
-		bs = []byte(r.Replace(string(bs)))
+
+		bs = logconfig.ViperToZap(bs)
 
 		// fmt.Println("serveCmd : checking viper configurations *after replacer \n\n", string(bs))
+		//panic capturing..
 		raven.CapturePanicAndWait(func() {
 			logger, err := logconfig.NewZapLogger(bs)
 			defer logger.Sync()

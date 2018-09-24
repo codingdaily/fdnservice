@@ -3,6 +3,7 @@ package logconfig
 import (
 	"os"
 	"path"
+	"strings"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -47,4 +48,22 @@ func NewZapLogger(loggingConfig []byte) (*zap.Logger, error) {
 	// config.ErrorOutputPaths
 
 	return logger, err
+}
+
+//ViperToZap - configuration adapter.
+/* handling viper's "feature"
+viper lowercase all keys, while zap configuration is case sensitive
+so this part of code is written
+*/
+func ViperToZap(bs []byte) []byte {
+	r := strings.NewReplacer(
+		"encoderconfig", "encoderConfig",
+		"outputpaths", "outputPaths",
+		"erroroutputpaths", "errorOutputPaths",
+		"initialfields", "initialFields",
+		"levelencoder", "levelEncoder",
+		"levelkey", "levelKey",
+		"messagekey", "messageKey",
+	)
+	return []byte(r.Replace(string(bs)))
 }
